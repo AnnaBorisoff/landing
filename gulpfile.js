@@ -5,6 +5,7 @@ const sass = require('gulp-sass')(require('sass'));
 const spritesmith = require('gulp.spritesmith');
 const rimraf = require('rimraf');
 const rename = require('gulp-rename');
+const sourcemaps = require('gulp-sourcemaps');
 
 /* -------- Server  -------- */
 gulp.task('server', function() {
@@ -80,4 +81,14 @@ gulp.task('server', function() {
     gulp.parallel('watch', 'server')
     )
   );
-  
+/* ------------ Sourcemaps ------------- */
+  function javascript() {
+    gulp.src('src/**/*.js')
+      .pipe(sourcemaps.init())
+        .pipe(plugin1())
+        .pipe(plugin2())
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest('dist'));
+  };
+    
+  exports.javascript = javascript;
